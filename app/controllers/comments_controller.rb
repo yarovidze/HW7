@@ -1,5 +1,8 @@
 class CommentsController < ApplicationController
 
+  def index
+  end
+
   def update
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
@@ -22,8 +25,8 @@ class CommentsController < ApplicationController
   def show
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
-    @comment.destroy
-    redirect_to @post, notice: "Comment was successfully deleted."
+    @comment.update(comments_params)
+    redirect_to @post, notice: "Comment was published."
   end
 
   private

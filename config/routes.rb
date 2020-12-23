@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'comment/index'
   root "posts#index", as: "home"
   resources :posts do
     resources :comments
