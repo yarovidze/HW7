@@ -1,18 +1,25 @@
 <section class="header">
   <div class="container">
-    <div class="header-titel"><h1><strong><%= @post.title %></strong></h1></div>
+    <div class="header-title"><h1><strong><%= @post.title %></strong></h1></div>
     <p class="author-header"><strong>Author:</strong> <%= @post.name %></p>
   </div>
 </section>
 <div class="container">
-
-<%= image_tag(@post.image, width: "200", class: "img-fluid py-5") if @post.image.present? %>
-
-<p>
-  <%= @post.content %>
-</p>
-
-<%= link_to 'Edit', edit_post_path(@post), class: "btn btn btn-info"  %>
-<%= link_to 'Back', posts_path, class: "btn btn btn-info"  %>
+  <div class="row">
+    <div class="col-lg-8">
+      <%= image_tag(@post.image, width: "200", class: "img-fluid py-5") if @post.image.present? %>
+      <p>
+        <%= @post.content %>
+      </p>
+      <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-info" %>
+      <%= link_to 'Back', posts_path, class: "btn btn-info" %>
+    </div>
+    <div class="col-lg-4">
+      <h5>Comments:</h5>
+      <%= render 'comments/comments' %>
+      <h5> Add a comment:</h5>
+      <%= render 'comments/form' %>
+    </div>
+  </div>
 </div>
 <p id="notice"><%= notice %></p>

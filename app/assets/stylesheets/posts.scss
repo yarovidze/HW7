@@ -23,3 +23,25 @@
   font-size: 12px;
   font-style: italic;
 }
+.comment-wrap {
+  position: relative;
+}
+.comment-add {
+  position: absolute;
+  font-size: 10px;
+  font-style: italic;
+  color: #6c757d;
+  right: 5px;
+  top: -5px;
+}
+.comment-status {
+  position: absolute;
+  font-size: 10px;
+  font-style: italic;
+  color: #ffffff;
+  padding: 0 5px;
+  background-color: #dc3545;
+  border-radius: 3px;
+  right: 5px;
+  top: 10px;
+}
