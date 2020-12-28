@@ -5,7 +5,7 @@
       <% if unpublished_comment %>
         <div class="comment-status"><%= comment.status %></div>
       <% end %>
-      <strong><%= comment.author.first_name %>:</strong>
+      <strong><%= comment.author.display_author %>:</strong>
       <div><%= comment.body %></div>
       <div class="comment-add"> added <%= distance_of_time_in_words(comment.updated_at, Time.now) %> ago</div>
     </div>
@@ -15,6 +15,10 @@
                     method: :patch,
                     class: "btn btn-success" %>
       <% end %>
+      <%= link_to 'Delete', post_comment_path(@post, comment),
+                  method: :delete,
+                  data: { confirm: 'Are you sure you want to delete the comment?' },
+                  class: "btn btn-danger" %>
     </div>
   </div>
 <% end %>
