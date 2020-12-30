@@ -13,8 +13,9 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @post = Post.find(params[:post_id])
-    @comment = @post.comments.create(comments_params)
+    @comment = @post.comments.build(comments_params)
+    @comment.author_id = current_author.id
+    @comment.save
     redirect_to @post
   end
 

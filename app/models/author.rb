@@ -6,6 +6,7 @@ class Author < ApplicationRecord
   before_save { self.email = email.downcase }
   has_many :post
   has_many :comments
+  has_one_attached :avatar
   def display_author
     "#{first_name} #{last_name}"
   end

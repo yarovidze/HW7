@@ -228,7 +228,7 @@ DEPENDENCIES
   bootstrap
   byebug
   capybara (>= 3.26)
-  image_processing (~> 1.2)
+  image_processing
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg

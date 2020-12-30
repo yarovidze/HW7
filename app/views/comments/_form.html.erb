@@ -1,9 +1,9 @@
 <%= form_with model: [@post, @post.comments.build] do |form| %>
 
-  <div class="field py-2">
-    <%= form.label "Name", class: "pb-2" %>
-    <%= form.collection_select :author_id, Author.order(:first_name), :id, :first_name, { prompt: "Select name" }, { class: "form-control" } %>
-  </div>
+<!--  <div class="field py-2">-->
+    <%#= form.label "Name", class: "pb-2" %>
+    <%#= form.collection_select :author_id, Author.order(:first_name), :id, :first_name, { prompt: "Select name" }, { class: "form-control" } %>
+<!--  </div>-->
 
   <div class="field py-2">
     <%= form.label "Comment", class: "pb-2" %>
