@@ -2,14 +2,19 @@ class CommentsController < ApplicationController
   before_action :set_post, only: [:create, :update, :destroy]
 
   def index
+  end
 
+  def edit
+    @post = Post.find(params[:post_id])
+    @comment = @post.comments.find(params[:id])
   end
 
   def update
     @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.update(comments_params)
-    redirect_to @post, notice: "Comment was published."
+    @comment.edited_at = Time.now
+    redirect_to @post, notice: "Comment was updated!"
   end
 
   def create

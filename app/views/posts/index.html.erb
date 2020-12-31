@@ -25,11 +25,11 @@
 <section class="header">
   <div class="container">
     <% if current_author %>
-    <div class="header-add-btn text-right"><%= link_to 'New Post', new_post_path, class: "btn btn-light" %></div>
+      <div class="header-add-btn text-right"><%= link_to 'New Post', new_post_path, class: "btn btn-light" %></div>
     <% else %>
-    <p class="auth-warning">You mast be authorized before create a post </p>
+      <p class="auth-warning">You mast be authorized before create a post </p>
     <% end %>
-      <div class="header-title"><h1>Simple blog</h1></div>
+    <div class="header-title"><h1>Simple blog</h1></div>
   </div>
 </section>
 <div class="container">
@@ -44,20 +44,23 @@
             <strong><label>Author by: </label> <%= post.name %></strong>
             <p>published <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago</p>
           </div>
-          <%= link_to 'Show', post, class: "btn btn-info" %>
-          <% if post.author == current_author %>
-            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
-            <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
-          <% else %>
-            <p>Only the author of the post can edit and delete</p>
-          <% end %>
+          <div class="text-center">
+            <%= link_to 'Show', post, class: "btn btn-info" %>
+            <% if post.author == current_author %>
+              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
+              <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
+            <% else %>
+              <p>Only the author of the post can edit and delete</p>
+            <% end %>
+          </div>
+        </div>
         </div>
       <% end %>
-    </div>
-  </div>
+      </div>
+</div>
 
 
-  <br>
+<br>
 </div>
 <div class="container">
   <p id="notice"><%= notice %></p>
