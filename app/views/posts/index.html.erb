@@ -34,33 +34,28 @@
 </section>
 <div class="container">
 
-  <div class="container">
-    <div class="row post-wrap">
-      <% @posts.each do |post| %>
-        <div class="col-sm-12 col-lg-4 bg-light post-list">
-          <h5 class="text-center"><%= post.title %></h5>
-          <div class="text-center"><%= image_tag(post.image, width: "200", class: "img-fluid") %></div>
-          <div class="author-post-item">
-            <strong><label>Author by: </label> <%= post.name %></strong>
-            <p>published <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago</p>
-          </div>
-          <div class="text-center">
-            <%= link_to 'Show', post, class: "btn btn-info" %>
-            <% if post.author == current_author %>
-              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
-              <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
-            <% else %>
-              <p>Only the author of the post can edit and delete</p>
-            <% end %>
-          </div>
+  <div class="row post-wrap">
+    <% @posts.each do |post| %>
+      <div class="col-sm-12 col-lg-4 bg-light post-list">
+        <h5 class="text-center"><%= post.title %></h5>
+        <div class="text-center"><%= image_tag(post.image, width: "200", class: "img-fluid") %></div>
+        <div class="author-post-item">
+          <strong><label>Author by: </label> <%= post.name %></strong>
+          <p>published <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago</p>
         </div>
+        <div class="text-center">
+          <%= link_to 'Show', post, class: "btn btn-info" %>
+          <% if post.author == current_author %>
+            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
+            <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
+          <% else %>
+            <p>Only the author of the post can edit and delete</p>
+          <% end %>
         </div>
-      <% end %>
       </div>
-</div>
+    <% end %>
+  </div>
 
-
-<br>
 </div>
 <div class="container">
   <p id="notice"><%= notice %></p>
