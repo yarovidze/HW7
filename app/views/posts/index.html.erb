@@ -32,28 +32,32 @@
     <div class="header-title"><h1>Simple blog</h1></div>
   </div>
 </section>
-<div class="container">
+<div class="container post-wrap">
 
-  <div class="row post-wrap">
+  <div class="row">
     <% @posts.each do |post| %>
-      <div class="col-sm-12 col-lg-4 bg-light post-list">
-        <h5 class="text-center"><%= post.title %></h5>
-        <div class="text-center"><%= image_tag(post.image, width: "200", class: "img-fluid") %></div>
-        <div class="author-post-item">
-          <strong><label>Author by: </label> <%= post.name %></strong>
-          <p>published <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago</p>
-        </div>
-        <div class="text-center">
-          <%= link_to 'Show', post, class: "btn btn-info" %>
-          <% if post.author == current_author %>
-            <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
-            <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
-          <% else %>
-            <p>Only the author of the post can edit and delete</p>
-          <% end %>
+      <div class="col-sm-12 col-lg-4">
+        <div class="bg-light post-list">
+          <h5 class="post-list-title"><%= link_to post.title, post %></h5>
+          <div class="text-center"><%= link_to image_tag(post.image, width: "200", class: "img-fluid"), post %></div>
+          <div class="author-post-item">
+            <strong><label>Author by: </label> <%= post.name %></strong>
+            <p>published <%= distance_of_time_in_words(post.updated_at, Time.now) %> ago</p>
+          </div>
+          <div class="text-center">
+            <% if post.author == current_author %>
+              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
+              <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
+            <% else %>
+              <p>Only the author of the post can edit and delete</p>
+            <% end %>
+          </div>
         </div>
       </div>
     <% end %>
+    <div class="digg_pagination">
+      <%= will_paginate @posts %>
+    </div>
   </div>
 
 </div>
