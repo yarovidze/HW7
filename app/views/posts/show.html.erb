@@ -31,17 +31,23 @@
       <p>
         <%= @post.content %>
       </p>
+      <%= link_to (fa_icon "undo", text: "Back to all"), posts_path, class: "btn btn-info" %>
       <% if @post.author == current_author %>
-        <%= link_to 'Edit', edit_post_path(@post), class: "btn btn-info" %>
+        <%= link_to (fa_icon "pencil", text: "Edit post"), edit_post_path(@post), class: "btn btn-info" %>
       <% end %>
-      <%= link_to 'Back', posts_path, class: "btn btn-info" %>
     </div>
     <div class="col-lg-4">
       <h5>Comments:</h5>
-      <%= render 'comments/comments' %>
+        <div>
+          <% @comments.each do |comment| %>
+            <div>
+              <%= render 'comments/comments', comments: comment.subtree.arrange %>
+            </div>
+          <% end %>
+        </div>
       <h5> Add a comment:</h5>
       <% if current_author %>
-        <%= render 'comments/form' %>
+        <%= render 'comments/form', parent_id: nil %>
       <% else %>
         <p class="py-4">You must login before add comment</p>
         <%= link_to "Login", '/sessions/new', class: "btn btn-info", method: :get %>

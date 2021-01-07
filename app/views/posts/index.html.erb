@@ -46,8 +46,8 @@
           </div>
           <div class="text-center">
             <% if post.author == current_author %>
-              <%= link_to 'Edit', edit_post_path(post), class: "btn btn-info" %>
-              <%= link_to 'Delete', post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-info" %>
+              <%= link_to (fa_icon "pencil"), edit_post_path(post), class: "btn btn-info" %>
+              <%= link_to (fa_icon "trash-o"), post, method: :delete, data: {confirm: 'You really want to delete this post?'}, class: "btn btn-danger" %>
             <% else %>
               <p class="warning-message">Only the author of the post can edit and delete</p>
             <% end %>

@@ -1,30 +1,39 @@
-<% @post.comments.each do |comment| %>
+<% comments.each do |parent, children| %>
   <div>
     <div class="comment-wrap">
-      <% unpublished_comment = comment.status == "unpublished" %>
-      <% if unpublished_comment %>
-        <div class="comment-status"><%= comment.status %></div>
+      <%= image_tag parent.author.avatar.variant(resize_to_limit: [50, 50]) if parent.author.avatar.present? %>
+      <strong><%= parent.author.display_author %>:</strong>
+      <% if parent.edited_at? %><p class="comment-edit">Comment edited</p>
       <% end %>
-      <%= image_tag comment.author.avatar.variant(resize_to_limit: [50, 50]) if comment.author.avatar.present? %>
-      <strong><%= comment.author.display_author %>:</strong>
-      <%if comment.edited_at? %><p class="comment-edit">Comment edited</p><%end%>
-      <div><%= comment.body %></div>
-      <div class="comment-add"> added <%= distance_of_time_in_words(comment.updated_at, Time.now) %> ago</div>
+      <div><%= parent.body %></div>
+      <div class="comment-add"> added <%= distance_of_time_in_words(parent.updated_at, Time.now) %> ago</div>
     </div>
-    <% if comment.author == current_author %>
-      <div class="text-right mb-3">
-        <% if unpublished_comment %>
-          <%= link_to 'Publish comment', post_comment_path(@post, comment, comment: {status: :published}),
-                      method: :patch,
-                      class: "btn btn-success" %>
-        <% end %>
-        <%= link_to 'Edit', edit_post_comment_path(comment.post, comment),
+    <% if parent.author == current_author %>
+      <div class="text-right mb-3 reply-wrap">
+        <button id='reply_btn' class='btn btn-info reply'><i class="fa fa-reply"></i></button>
+        <%#= link_to (fa_icon "reply"), new_post_comment_path(@post, comment_id: parent.id ), remote: true, class: "btn btn-info reply" %>
+
+        <%= link_to (fa_icon "pencil"), edit_post_comment_path(parent.post, parent),
                     class: "btn btn-info" %>
-        <%= link_to 'Delete', post_comment_path(@post, comment),
+        <%= link_to (fa_icon "trash-o"), post_comment_path(@post, parent),
                     method: :delete,
                     data: {confirm: 'Are you sure you want to delete the comment?'},
                     class: "btn btn-danger" %>
       </div>
     <% end %>
+  </div>
+  <div id="hide" class="form-reply-hide form-reply-show">
+    <%= render 'comments/form', parent_id: parent.id %>
+  </div>
+  <% if flash[:comment_error].present? %>
+    <div id="error_explanation">
+      <h5> Cannot be saved: </h5>
+      <ul>
+        <li><%= flash[:comment_error] %></li>
+      </ul>
+    </div>
+  <% end %>
+  <div class="comment-level">
+    <%= render 'comments/comments', comments: children %>
   </div>
 <% end %>

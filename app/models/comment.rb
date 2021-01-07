@@ -1,4 +1,5 @@
 class Comment < ApplicationRecord
+  has_ancestry
   belongs_to :post
   belongs_to :author
   enum status: [:unpublished, :published]

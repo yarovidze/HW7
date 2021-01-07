@@ -1,0 +1,2 @@
+class AddLike < ApplicationRecord
+end

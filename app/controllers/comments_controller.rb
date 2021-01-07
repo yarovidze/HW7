@@ -1,16 +1,19 @@
 class CommentsController < ApplicationController
-  before_action :set_post, only: [:create, :update, :destroy]
+  before_action :set_post, only: [:create, :update, :destroy, :edit]
 
   def index
+    @comment = Comment.new
   end
 
   def edit
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
   end
 
+
+  # def new
+  # end
+
   def update
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.update(comments_params)
     @comment.edited_at = Time.now
@@ -20,19 +23,23 @@ class CommentsController < ApplicationController
   def create
     @comment = @post.comments.build(comments_params)
     @comment.author_id = current_author.id
-    @comment.save
-    redirect_to @post
+    if @comment.save
+      redirect_to @comment.post
+    else
+      parent_id = @comment.parent ? @comment.parent: nil
+      redirect_to @post, flash: { comment_error: @comment.errors.full_messages.join(". "), comment_id: parent_id}
+    end
   end
 
   def destroy
-    @post = Post.find(params[:post_id])
     @comment = @post.comments.find(params[:id])
     @comment.destroy
     redirect_to @post, notice: "Comment was successfully deleted."
   end
 
-  def show
-
+  def publish
+    @comment.update(comments_params)
+    redirect_to @post, notice: "Comment was published!."
   end
 
   private
@@ -42,6 +49,6 @@ class CommentsController < ApplicationController
   end
 
   def comments_params
-    params.require(:comment).permit(:author_id, :body, :status)
+    params.require(:comment).permit(:author_id, :body, :parent_id)
   end
 end
