@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   get 'profile', to: 'authors#edit', as: 'profile'
   root "posts#index", as: "home"
   resources :posts do
-    resources :comments
+    resources :comments do
+      resources :likes
+      post 'dislikes' => 'like#dislike'
+    end
     get 'search', on: :collection
   end
   resources :authors
