@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_post, only: [:create, :update, :destroy, :edit]
+  before_action :set_post, only: [:create, :update, :destroy, :edit, :new]
 
   def index
     @comment = Comment.new
@@ -10,8 +10,9 @@ class CommentsController < ApplicationController
   end
 
 
-  # def new
-  # end
+  def new
+    @comment = @post.comments.build
+  end
 
   def update
     @comment = @post.comments.find(params[:id])
@@ -24,7 +25,7 @@ class CommentsController < ApplicationController
     @comment = @post.comments.build(comments_params)
     @comment.author_id = current_author.id
     if @comment.save
-      redirect_to @comment.post
+      render template: ('comments/post_comment')
     else
       parent_id = @comment.parent ? @comment.parent: nil
       redirect_to @post, flash: { comment_error: @comment.errors.full_messages.join(". "), comment_id: parent_id}
