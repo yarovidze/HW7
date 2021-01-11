@@ -28,7 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'image_processing'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', require: false
 gem 'bootstrap'
 
 group :development, :test do
@@ -64,4 +64,5 @@ gem 'jquery-ui-rails'
 gem 'trix'
 gem 'channels'
 gem 'spring'
+gem 'figaro'
 

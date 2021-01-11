@@ -38,7 +38,7 @@
     </div>
     <div class="col-lg-4">
       <h5>Comments:</h5>
-        <div>
+        <div class="new-comment">
           <% @comments.each do |comment| %>
             <div>
               <%= render 'comments/comments', comments: comment.subtree.arrange %>

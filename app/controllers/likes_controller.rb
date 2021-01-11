@@ -9,6 +9,7 @@ class LikesController < ApplicationController
       flash[:notice] = "You can't like more than once"
     else
       @comment.likes.create!(author: current_author, vote_value: 1)
+      render 'likes'
     end
     redirect_to post_path(@post)
   end
@@ -21,6 +22,7 @@ class LikesController < ApplicationController
       flash[:notice] = "You can't dislike more than once"
     else
       @comment.likes.create!(author: current_author, vote_value: -1)
+      render 'likes'
     end
     redirect_to post_path(@post)
   end
