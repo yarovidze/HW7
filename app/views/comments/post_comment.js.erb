@@ -1,2 +1,2 @@
 alert('posted');
-$('#comment_id_<%= parent.id %>')
+$('#comment_id_<%= parent.id %>').append('<%= j  @post.comments.arrange%>')
